@@ -1,21 +1,26 @@
 import logging, asyncio
+from telethon import TelegramClient
+from telethon.tl.functions.messages import GetDialogsRequest
+from telethon.tl.types import InputPeerEmpty
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher import FSMContext
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
+from aiogram.types import ParseMode
 from Keyboards.inline import *
+from config import *
 from state import Xabar
 from collections import defaultdict
 from databace import *
 
-API_TOKEN = "7185696251:AAF7cdn3UtElCkxQ-KfvikNS5z3f9bi55jc"
-
 logging.basicConfig(level=logging.INFO)
-bot = Bot(token=API_TOKEN, parse_mode='HTML')
+bot = Bot(token=BOT_TOKEN, parse_mode='HTML')
 dp = Dispatcher(bot, storage=MemoryStorage())
 dp.middleware.setup(LoggingMiddleware())
 
 fake_db = defaultdict(dict)
+
+
 
 
 @dp.message_handler(commands=['start'])
@@ -117,11 +122,6 @@ async def xabar_yuborishh(call: types.CallbackQuery):
                     print(60)
                     await call.bot.send_message(i[1], d[2])
                     await asyncio.sleep(3600)
-
-
-#--------------Xabar qidirish--------------#
-
-
 
 
 if __name__ == '__main__':
